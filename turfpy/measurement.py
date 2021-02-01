@@ -41,7 +41,7 @@ from turfpy.meta import (
     segment_reduce,
 )
 
-precision = 14
+RM_PRECISION = 14
 # ---------- Bearing -----------#
 
 
@@ -1149,7 +1149,7 @@ def rhumb_destination(origin, distance, bearing, options: dict = {}) -> Feature:
     coords = get_coord(origin)
     destination_point = _calculate_rhumb_destination(coords, distance_in_meters, bearing)
     return Feature(
-        geometry=Point(destination_point, precision),
+        geometry=Point(destination_point, precision=RM_PRECISION),
         properties=options.get("properties", ""),
     )
 

@@ -36,7 +36,8 @@ from turfpy.meta import coord_each, feature_each, flatten_each
 from .dev_lib.earcut import earcut
 from .dev_lib.spline import Spline
 
-precision = 14
+# RM_PRECISION for coordinates
+RM_PRECISION = 14
 
 def circle(
     center: Feature, radius: int, steps: int = 64, units: str = "km", **kwargs
@@ -599,10 +600,10 @@ def transform_rotate(
         coord, coord_index, feature_index, multi_feature_index, geometry_index
     ):
         nonlocal pivot, angle
-        initial_angle = rhumb_bearing(GeoPoint(pivot, precision), GeoPoint(coord, precision))
+        initial_angle = rhumb_bearing(GeoPoint(pivot, precision=RM_PRECISION), GeoPoint(coord, precision=RM_PRECISION))
         final_angle = initial_angle + angle
-        distance = rhumb_distance(GeoPoint(pivot, precision), GeoPoint(coord, precision))
-        new_coords = get_coord(rhumb_destination(GeoPoint(pivot, precision), distance, final_angle))
+        distance = rhumb_distance(GeoPoint(pivot, precision=RM_PRECISION), GeoPoint(coord, precision=RM_PRECISION))
+        new_coords = get_coord(rhumb_destination(GeoPoint(pivot, precision=RM_PRECISION), distance, final_angle))
         coord[0] = new_coords[0]
         coord[1] = new_coords[1]
 
